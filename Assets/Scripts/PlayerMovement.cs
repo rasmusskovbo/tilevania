@@ -7,7 +7,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 moveInput;
     private Rigidbody2D body;
     private Animator animator;
-    private Collider2D collider;
+    private Collider2D bodyCollider;
+    private Collider2D feetCollider;
     private LayerMask groundLayer;
     private LayerMask interactiveLayer;
     
@@ -26,7 +27,8 @@ public class PlayerMovement : MonoBehaviour
     {
         body = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        collider = GetComponent<Collider2D>();
+        bodyCollider = GetComponent<CapsuleCollider2D>();
+        feetCollider = GetComponent<BoxCollider2D>();
         
         groundLayer = LayerMask.GetMask("Ground");
         interactiveLayer = LayerMask.GetMask("Interactive");
@@ -40,6 +42,7 @@ public class PlayerMovement : MonoBehaviour
         Run();
         FlipSprite();
         ClimbLadder();
+        PauseAnimationWhenNotMovingOnLadder();
     }
 
     // Called by Input system
@@ -51,8 +54,8 @@ public class PlayerMovement : MonoBehaviour
     // When Jump Input button is pressed, called by Input system
     void OnJump(InputValue value)
     {
-        if (!collider.IsTouchingLayers(groundLayer)) return;
-        
+        if (!feetCollider.IsTouchingLayers(groundLayer)) return;
+
         if (value.isPressed) body.velocity += new Vector2(0f, jumpForce);
 
     }
@@ -79,7 +82,7 @@ public class PlayerMovement : MonoBehaviour
 
     void ClimbLadder()
     {
-        bool playerIsClimbing = collider.IsTouchingLayers(interactiveLayer);
+        bool playerIsClimbing = bodyCollider.IsTouchingLayers(interactiveLayer);
         animator.SetBool(IsClimbing, playerIsClimbing);
 
         if (playerIsClimbing)
@@ -87,16 +90,26 @@ public class PlayerMovement : MonoBehaviour
             Vector2 playerVelocity = new Vector2(body.velocity.x, moveInput.y * climbSpeed);
             body.velocity = playerVelocity;
             body.gravityScale = 0;
-
-            animator.speed = Mathf.Abs(body.velocity.y) > Mathf.Epsilon ? standardAnimationSpeed : pauseAnimationSpeed;
-            
         }
         else
         {
             body.gravityScale = defaultGravity;
         }
         
+    }
 
+    void PauseAnimationWhenNotMovingOnLadder()
+    {
+        animator.speed = standardAnimationSpeed;
+        bool playerIsClimbing = bodyCollider.IsTouchingLayers(interactiveLayer);
+        if (!playerIsClimbing) return;
+
+        bool playerIsNotIdle =
+            Mathf.Abs(body.velocity.y) > Mathf.Epsilon ||
+            Mathf.Abs(body.velocity.x) > Mathf.Epsilon;
+
+        if (playerIsNotIdle) return;
+        animator.speed = pauseAnimationSpeed;
     }
 
     /*
