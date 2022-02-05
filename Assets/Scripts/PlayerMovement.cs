@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,10 +12,16 @@ public class PlayerMovement : MonoBehaviour
     private Collider2D feetCollider;
     private LayerMask groundLayer;
     private LayerMask interactiveLayer;
+    private LayerMask enemiesLayer;
+    private LayerMask hazardsLayer;
     
     [SerializeField] private float runSpeed;
     [SerializeField] private float climbSpeed;
     [SerializeField] private float jumpForce;
+    [SerializeField] private Vector2 deathKick = new Vector2(5, 25);
+    [SerializeField] private GameObject arrow;
+    [SerializeField] private Transform bow;
+    public bool isAlive = true;
     
     private float defaultGravity;
     private float standardAnimationSpeed;
@@ -22,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
     
     private static readonly int IsRunning = Animator.StringToHash("isRunning");
     private static readonly int IsClimbing = Animator.StringToHash("isClimbing");
+    private static readonly int Dying = Animator.StringToHash("Dying");
 
     void Start()
     {
@@ -32,6 +40,8 @@ public class PlayerMovement : MonoBehaviour
         
         groundLayer = LayerMask.GetMask("Ground");
         interactiveLayer = LayerMask.GetMask("Interactive");
+        enemiesLayer = LayerMask.GetMask("Enemies");
+        enemiesLayer = LayerMask.GetMask("Hazards");
         
         defaultGravity = body.gravityScale;
         standardAnimationSpeed = animator.speed;
@@ -39,10 +49,15 @@ public class PlayerMovement : MonoBehaviour
     
     void Update()
     {
+        CheckDeath();
+        
+        if (!isAlive) return;
         Run();
         FlipSprite();
         ClimbLadder();
         PauseAnimationWhenNotMovingOnLadder();
+        
+
     }
 
     // Called by Input system
@@ -54,10 +69,18 @@ public class PlayerMovement : MonoBehaviour
     // When Jump Input button is pressed, called by Input system
     void OnJump(InputValue value)
     {
+        if (!isAlive) return;
         if (!feetCollider.IsTouchingLayers(groundLayer)) return;
 
         if (value.isPressed) body.velocity += new Vector2(0f, jumpForce);
 
+    }
+
+    void OnFire(InputValue value)
+    {
+        if (!isAlive) return;
+
+        if (value.isPressed) Instantiate(arrow, bow.position, transform.rotation);
     }
 
     void Run()
@@ -82,6 +105,8 @@ public class PlayerMovement : MonoBehaviour
 
     void ClimbLadder()
     {
+        if (!isAlive) return;
+        
         bool playerIsClimbing = bodyCollider.IsTouchingLayers(interactiveLayer);
         animator.SetBool(IsClimbing, playerIsClimbing);
 
@@ -110,6 +135,24 @@ public class PlayerMovement : MonoBehaviour
 
         if (playerIsNotIdle) return;
         animator.speed = pauseAnimationSpeed;
+    }
+
+    void CheckDeath()
+    {
+        if (!isAlive) return;
+        
+        if (bodyCollider.IsTouchingLayers(enemiesLayer) ||
+            bodyCollider.IsTouchingLayers(hazardsLayer))
+        {
+            Die();
+        }
+    }
+
+    public void Die()
+    {
+        isAlive = false;
+        animator.SetTrigger(Dying);
+        body.velocity = deathKick;
     }
 
     /*
