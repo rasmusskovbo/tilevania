@@ -1,7 +1,9 @@
 using System;
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -14,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     private LayerMask interactiveLayer;
     private LayerMask enemiesLayer;
     private LayerMask hazardsLayer;
+    private GameSession _gameSession;
     
     [SerializeField] private float runSpeed;
     [SerializeField] private float climbSpeed;
@@ -37,6 +40,7 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         bodyCollider = GetComponent<CapsuleCollider2D>();
         feetCollider = GetComponent<BoxCollider2D>();
+        _gameSession = FindObjectOfType<GameSession>();
         
         groundLayer = LayerMask.GetMask("Ground");
         interactiveLayer = LayerMask.GetMask("Interactive");
@@ -153,6 +157,14 @@ public class PlayerMovement : MonoBehaviour
         isAlive = false;
         animator.SetTrigger(Dying);
         body.velocity = deathKick;
+
+        StartCoroutine(RestartLevel());
+    }
+
+    IEnumerator RestartLevel()
+    {
+        yield return new WaitForSecondsRealtime(2);
+        _gameSession.ProcessPlayerDeath();
     }
 
     /*
