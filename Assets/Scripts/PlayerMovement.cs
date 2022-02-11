@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     private Collider2D bodyCollider;
     private Collider2D feetCollider;
     private LayerMask groundLayer;
-    private LayerMask interactiveLayer;
+    private LayerMask ladderLayer;
     private LayerMask enemiesLayer;
     private LayerMask hazardsLayer;
     private GameSession _gameSession;
@@ -43,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
         _gameSession = FindObjectOfType<GameSession>();
         
         groundLayer = LayerMask.GetMask("Ground");
-        interactiveLayer = LayerMask.GetMask("Interactive");
+        ladderLayer = LayerMask.GetMask("Ladders");
         enemiesLayer = LayerMask.GetMask("Enemies");
         enemiesLayer = LayerMask.GetMask("Hazards");
         
@@ -111,7 +111,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isAlive) return;
         
-        bool playerIsClimbing = bodyCollider.IsTouchingLayers(interactiveLayer);
+        bool playerIsClimbing = bodyCollider.IsTouchingLayers(ladderLayer);
         animator.SetBool(IsClimbing, playerIsClimbing);
 
         if (playerIsClimbing)
@@ -130,7 +130,7 @@ public class PlayerMovement : MonoBehaviour
     void PauseAnimationWhenNotMovingOnLadder()
     {
         animator.speed = standardAnimationSpeed;
-        bool playerIsClimbing = bodyCollider.IsTouchingLayers(interactiveLayer);
+        bool playerIsClimbing = bodyCollider.IsTouchingLayers(ladderLayer);
         if (!playerIsClimbing) return;
 
         bool playerIsNotIdle =

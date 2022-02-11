@@ -7,6 +7,7 @@ using UnityEngine;
 public class CoinPickup : MonoBehaviour
 {
     private GameSession _gameSession;
+    [SerializeField] private AudioClip pickupSFX;
 
     private void Start()
     {
@@ -18,6 +19,7 @@ public class CoinPickup : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
            Destroy(gameObject);
+           AudioSource.PlayClipAtPoint(pickupSFX, Camera.main.transform.position);
            _gameSession.AddCoin();
         }
     }
