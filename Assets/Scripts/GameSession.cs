@@ -44,12 +44,13 @@ public class GameSession : MonoBehaviour
 
     private void ResetGameSession()
     {
-        SceneManager.LoadScene(0);
         Destroy(gameObject);
+        SceneManager.LoadScene(0);
     }
 
     public void AddCoin()
     {
         this.coins++;
+        Debug.Log(coins);
     }
 }

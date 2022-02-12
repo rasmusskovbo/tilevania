@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac560281bbe6545f4a9383a92c5636fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pickupSFX: {fileID: 8300000, guid: 97211971f418447f29d176812643c58b, type: 3}
 --- !u!212 &4930191079547453048
 SpriteRenderer:
   m_ObjectHideFlags: 0
