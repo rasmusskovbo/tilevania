@@ -53,4 +53,14 @@ public class GameSession : MonoBehaviour
         this.coins++;
         Debug.Log(coins);
     }
+
+    public String getLives()
+    {
+        return playerLives.ToString();
+    }
+    
+    public String getCoins()
+    {
+        return coins.ToString();
+    }
 }
