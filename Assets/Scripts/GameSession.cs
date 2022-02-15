@@ -26,7 +26,7 @@ public class GameSession : MonoBehaviour
 
     public void ProcessPlayerDeath()
     {
-        if (playerLives > 0)
+        if (playerLives > 1)
         {
             ReduceLives();
         }

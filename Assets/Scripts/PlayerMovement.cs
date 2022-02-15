@@ -16,7 +16,6 @@ public class PlayerMovement : MonoBehaviour
     private LayerMask ladderLayer;
     private LayerMask enemiesLayer;
     private LayerMask hazardsLayer;
-    private GameSession _gameSession;
     
     [SerializeField] private float runSpeed;
     [SerializeField] private float climbSpeed;
@@ -40,7 +39,6 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         bodyCollider = GetComponent<CapsuleCollider2D>();
         feetCollider = GetComponent<BoxCollider2D>();
-        _gameSession = FindObjectOfType<GameSession>();
         
         groundLayer = LayerMask.GetMask("Ground");
         ladderLayer = LayerMask.GetMask("Ladders");
@@ -164,7 +162,7 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator RestartLevel()
     {
         yield return new WaitForSecondsRealtime(2);
-        _gameSession.ProcessPlayerDeath();
+        FindObjectOfType<GameSession>().ProcessPlayerDeath();
     }
 
     /*

@@ -315,7 +315,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7773438, y: 1}
+    m_SensorSize: {x: 1.5535169, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -8901,7 +8901,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7773438, y: 1}
+    m_SensorSize: {x: 1.5535169, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -9452,7 +9452,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -9.822251, y: 6.1341743, z: 30.364891}
+  m_LocalPosition: {x: -10.717556, y: 6.133804, z: 30.364891}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 854816195}
@@ -24962,7 +24962,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7773438, y: 1}
+    m_SensorSize: {x: 1.5535169, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -25143,6 +25143,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b34a0a30e9f64164b31e627634b7e91, type: 3}
+--- !u!4 &819378079 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5952850570638778858, guid: 2b34a0a30e9f64164b31e627634b7e91, type: 3}
+  m_PrefabInstance: {fileID: 819378078}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &829560141 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3230163491844577393, guid: e333558b242e52e4bb20429e9e3144e8, type: 3}
@@ -26616,7 +26621,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7773438, y: 1}
+    m_SensorSize: {x: 1.5535169, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -26660,8 +26665,40 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 819378079}
     m_Modifications:
+    - target: {fileID: 4081825442774879533, guid: 73d9ef4bb3b8a3745b31c1138cd792b5, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4081825442774879533, guid: 73d9ef4bb3b8a3745b31c1138cd792b5, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4081825442774879533, guid: 73d9ef4bb3b8a3745b31c1138cd792b5, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4081825442774879533, guid: 73d9ef4bb3b8a3745b31c1138cd792b5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4081825443476430072, guid: 73d9ef4bb3b8a3745b31c1138cd792b5, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4081825443476430072, guid: 73d9ef4bb3b8a3745b31c1138cd792b5, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4081825443476430072, guid: 73d9ef4bb3b8a3745b31c1138cd792b5, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4081825443476430072, guid: 73d9ef4bb3b8a3745b31c1138cd792b5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4081825443998168066, guid: 73d9ef4bb3b8a3745b31c1138cd792b5, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -26672,7 +26709,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4081825443998168066, guid: 73d9ef4bb3b8a3745b31c1138cd792b5, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4081825443998168066, guid: 73d9ef4bb3b8a3745b31c1138cd792b5, type: 3}
       propertyPath: m_AnchorMax.x

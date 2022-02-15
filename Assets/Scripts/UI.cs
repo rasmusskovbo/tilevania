@@ -14,8 +14,7 @@ public class UI : MonoBehaviour
     {
         _session = FindObjectOfType<GameSession>();
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
         setLives(_session.getLives());
