@@ -13,7 +13,7 @@ public class CoinPickup : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
            Destroy(gameObject);
-           AudioSource.PlayClipAtPoint(pickupSFX, Camera.main.transform.position);
+           AudioSource.PlayClipAtPoint(pickupSFX, Camera.main.transform.position, 0.25f);
            FindObjectOfType<GameSession>().AddCoin();
         }
     }

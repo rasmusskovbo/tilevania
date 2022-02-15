@@ -9,6 +9,7 @@ public class GameSession : MonoBehaviour
 {
     [SerializeField] private int playerLives;
     [SerializeField] private int coins;
+    private String statusText = "You won!";
     
     private void Awake()
     {
@@ -32,7 +33,9 @@ public class GameSession : MonoBehaviour
         }
         else
         {
-            ResetGameSession();
+            playerLives = 0;
+            statusText = "You died!";
+            SceneManager.LoadScene(3);
         }
     }
 
@@ -42,10 +45,11 @@ public class GameSession : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    private void ResetGameSession()
+    public void ResetGameSession()
     {
         Destroy(gameObject);
         SceneManager.LoadScene(0);
+//        FindObjectOfType<ScenePersist>().ResetScenePersist();
     }
 
     public void AddCoin()
@@ -62,5 +66,10 @@ public class GameSession : MonoBehaviour
     public String getCoins()
     {
         return coins.ToString();
+    }
+    
+    public String getStatusText()
+    {
+        return statusText;
     }
 }

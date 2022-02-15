@@ -19,9 +19,18 @@ public class Exit : MonoBehaviour
 
     IEnumerator NextLevel()
     {
-        
         yield return new WaitForSecondsRealtime(time);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        int nextSceneIndex = currentSceneIndex + 1;
+
+        if (nextSceneIndex == SceneManager.sceneCountInBuildSettings)
+        {
+            nextSceneIndex = 0;
+        }
+        
+        FindObjectOfType<ScenePersist>().ResetScenePersist();
+        SceneManager.LoadScene(nextSceneIndex);
     }
     
 }
