@@ -14,7 +14,7 @@ public class GameSession : MonoBehaviour
     private void Awake()
     {
         int numGamesSession = FindObjectsOfType<GameSession>().Length;
-
+        
         if (numGamesSession > 1)
         {
             Destroy(gameObject);

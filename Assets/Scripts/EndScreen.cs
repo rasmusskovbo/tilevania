@@ -17,8 +17,14 @@ public class EndScreen : MonoBehaviour
     void Start()
     {
         Destroy(FindObjectOfType<UI>().gameObject);
-        Destroy(FindObjectOfType<ScenePersist>().gameObject);
-        
+        if (FindObjectOfType<ScenePersist>())
+        {
+            Destroy(FindObjectOfType<ScenePersist>().gameObject);
+        }
+    }
+
+    private void Update()
+    {
         session = FindObjectOfType<GameSession>();
         statusText.text = session.getStatusText();
         lives.text = session.getLives();
