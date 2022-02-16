@@ -42,6 +42,7 @@ public class GameSession : MonoBehaviour
     private void ReduceLives()
     {
         playerLives--;
+        FindObjectOfType<PlayerMovement>().isAlive = true;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
@@ -54,7 +55,6 @@ public class GameSession : MonoBehaviour
     public void AddCoin()
     {
         this.coins++;
-        Debug.Log(coins);
     }
 
     public String getLives()

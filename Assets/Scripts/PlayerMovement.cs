@@ -43,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
         groundLayer = LayerMask.GetMask("Ground");
         ladderLayer = LayerMask.GetMask("Ladders");
         enemiesLayer = LayerMask.GetMask("Enemies");
-        enemiesLayer = LayerMask.GetMask("Hazards");
+        hazardsLayer = LayerMask.GetMask("Hazards");
 
         defaultGravity = body.gravityScale;
         standardAnimationSpeed = animator.speed;
@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         CheckDeath();
-
+        
         if (!isAlive) return;
         Run();
         FlipSprite();
@@ -142,7 +142,7 @@ public class PlayerMovement : MonoBehaviour
     void CheckDeath()
     {
         if (!isAlive) return;
-
+        
         if (bodyCollider.IsTouchingLayers(enemiesLayer) ||
             bodyCollider.IsTouchingLayers(hazardsLayer))
         {

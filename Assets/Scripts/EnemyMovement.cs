@@ -33,8 +33,8 @@ public class EnemyMovement : MonoBehaviour
     {
         if (col.gameObject.Equals(player))
         {
-            if (!playerScript.isAlive) return;
-            playerScript.Die();
+            if (!FindObjectOfType<PlayerMovement>().isAlive) return;
+            FindObjectOfType<PlayerMovement>().Die();
         }
     }
 }
