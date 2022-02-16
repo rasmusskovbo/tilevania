@@ -35,7 +35,7 @@ public class GameSession : MonoBehaviour
         {
             playerLives = 0;
             statusText = "You died!";
-            SceneManager.LoadScene(3);
+            SceneManager.LoadScene(4);
         }
     }
 
@@ -47,9 +47,8 @@ public class GameSession : MonoBehaviour
 
     public void ResetGameSession()
     {
-        Destroy(gameObject);
         SceneManager.LoadScene(0);
-//        FindObjectOfType<ScenePersist>().ResetScenePersist();
+        Destroy(gameObject);
     }
 
     public void AddCoin()

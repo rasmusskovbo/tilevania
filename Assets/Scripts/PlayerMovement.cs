@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
     private LayerMask ladderLayer;
     private LayerMask enemiesLayer;
     private LayerMask hazardsLayer;
-    
+
     [SerializeField] private float runSpeed;
     [SerializeField] private float climbSpeed;
     [SerializeField] private float jumpForce;
@@ -24,11 +24,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject arrow;
     [SerializeField] private Transform bow;
     public bool isAlive = true;
-    
+
     private float defaultGravity;
     private float standardAnimationSpeed;
     private float pauseAnimationSpeed = 0;
-    
+
     private static readonly int IsRunning = Animator.StringToHash("isRunning");
     private static readonly int IsClimbing = Animator.StringToHash("isClimbing");
     private static readonly int Dying = Animator.StringToHash("Dying");
@@ -39,26 +39,26 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         bodyCollider = GetComponent<CapsuleCollider2D>();
         feetCollider = GetComponent<BoxCollider2D>();
-        
+
         groundLayer = LayerMask.GetMask("Ground");
         ladderLayer = LayerMask.GetMask("Ladders");
         enemiesLayer = LayerMask.GetMask("Enemies");
         enemiesLayer = LayerMask.GetMask("Hazards");
-        
+
         defaultGravity = body.gravityScale;
         standardAnimationSpeed = animator.speed;
     }
-    
+
     void Update()
     {
         CheckDeath();
-        
+
         if (!isAlive) return;
         Run();
         FlipSprite();
         ClimbLadder();
         PauseAnimationWhenNotMovingOnLadder();
-        
+
 
     }
 
@@ -67,7 +67,7 @@ public class PlayerMovement : MonoBehaviour
     {
         moveInput = value.Get<Vector2>();
     }
-    
+
     // When Jump Input button is pressed, called by Input system
     void OnJump(InputValue value)
     {
@@ -89,7 +89,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector2 playerVelocity = new Vector2(moveInput.x * runSpeed, body.velocity.y);
         body.velocity = playerVelocity;
-        
+
         bool playerIsRunning = Math.Abs(moveInput.x) > Mathf.Epsilon;
         animator.SetBool(IsRunning, playerIsRunning);
     }
@@ -100,15 +100,15 @@ public class PlayerMovement : MonoBehaviour
 
         if (playerHasHorizontalSpeed)
         {
-            transform.localScale = new Vector2(Mathf.Sign(body.velocity.x), 1f);    
+            transform.localScale = new Vector2(Mathf.Sign(body.velocity.x), 1f);
         }
-        
+
     }
 
     void ClimbLadder()
     {
         if (!isAlive) return;
-        
+
         bool playerIsClimbing = bodyCollider.IsTouchingLayers(ladderLayer);
         animator.SetBool(IsClimbing, playerIsClimbing);
 
@@ -122,7 +122,7 @@ public class PlayerMovement : MonoBehaviour
         {
             body.gravityScale = defaultGravity;
         }
-        
+
     }
 
     void PauseAnimationWhenNotMovingOnLadder()
@@ -142,7 +142,7 @@ public class PlayerMovement : MonoBehaviour
     void CheckDeath()
     {
         if (!isAlive) return;
-        
+
         if (bodyCollider.IsTouchingLayers(enemiesLayer) ||
             bodyCollider.IsTouchingLayers(hazardsLayer))
         {
@@ -165,25 +165,30 @@ public class PlayerMovement : MonoBehaviour
         FindObjectOfType<GameSession>().ProcessPlayerDeath();
     }
 
-    /*
-    [SerializeField] private float maxExtraJumps;
-    private float extraJumps;
-    
-    if (value.isPressed && extraJumps > 0)
-        {
-            body.velocity += new Vector2(0f, jumpForce);
-            extraJumps--;
-            Debug.Log("Remaining jumps:" + extraJumps);
-        }
-     
-    void RefreshJumps()
+    public void DisableControls()
     {
-        bool playerIsOnTheGround = collider.IsTouchingLayers(groundLayer);
-
-        if (playerIsOnTheGround)
-        {
-            extraJumps = maxExtraJumps;
-        }
+        isAlive = false;
     }
-    */
+
+/*
+[SerializeField] private float maxExtraJumps;
+private float extraJumps;
+
+if (value.isPressed && extraJumps > 0)
+    {
+        body.velocity += new Vector2(0f, jumpForce);
+        extraJumps--;
+        Debug.Log("Remaining jumps:" + extraJumps);
+    }
+ 
+void RefreshJumps()
+{
+    bool playerIsOnTheGround = collider.IsTouchingLayers(groundLayer);
+
+    if (playerIsOnTheGround)
+    {
+        extraJumps = maxExtraJumps;
+    }
+}
+*/
 }

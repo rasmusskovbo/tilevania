@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class Exit : MonoBehaviour
 {
+    [SerializeField] private ParticleSystem particles;
     private int time = 2;
     
     void OnTriggerEnter2D(Collider2D other)
@@ -19,6 +20,9 @@ public class Exit : MonoBehaviour
 
     IEnumerator NextLevel()
     {
+        particles.Play();
+        FindObjectOfType<PlayerMovement>().DisableControls();
+        
         yield return new WaitForSecondsRealtime(time);
 
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
