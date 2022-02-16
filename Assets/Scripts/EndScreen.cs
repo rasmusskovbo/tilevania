@@ -41,5 +41,10 @@ public class EndScreen : MonoBehaviour
         }
     }
 
+    public void ReturnToMainMenu()
+    {
+        FindObjectOfType<GameSession>().ResetGameSession();
+    }
+
     
 }
